@@ -1,0 +1,29 @@
+[features]
+seeds = false
+[programs.localnet]
+addmeta = "3WEXkDmTYHfGjLWnFW2NoAhgEcDgcPn2LHKBPGLUcgq2"
+[programs.devnet]
+addmeta = "3WEXkDmTYHfGjLWnFW2NoAhgEcDgcPn2LHKBPGLUcgq2"
+[programs.mainnet]
+addmeta = "3WEXkDmTYHfGjLWnFW2NoAhgEcDgcPn2LHKBPGLUcgq2"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run mocha -t 1000000 tests/addmeta.js"
+init = "yarn run mocha -t 1000000 tests/init.js"
+mkacc = "yarn run mocha -t 1000000 tests/mkacc.js"
+aff = "yarn run mocha -t 1000000 tests/aff.js"
+getusdc = "yarn run mocha -t 1000000 tests/getusdc.js"
+getoku = "yarn run mocha -t 1000000 tests/getoku.js"
+tokmeta = "yarn run mocha -t 1000000 tests/tokmeta.js"
+buy = "yarn run mocha -t 1000000 tests/buy.js"
+collect = "yarn run mocha -t 1000000 tests/collect.js"
+claim = "yarn run mocha -t 1000000 tests/claim.js"
+claimco = "yarn run mocha -t 1000000 tests/claimco.js"
+setup = "yarn run mocha -t 1000000 tests/setup.js"
