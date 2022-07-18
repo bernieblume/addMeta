@@ -7,7 +7,7 @@ use anchor_spl::{
     token::{Mint, Token},
    };
 
-use mpl_token_metadata::instruction::create_metadata_accounts_v3;
+use mpl_token_metadata::{instruction::create_metadata_accounts_v3};
 // use mpl_token_metadata::pda::find_metadata_account;
 
 pub const CTRLSEED: &[u8] = b"CTRLv1";
@@ -35,7 +35,7 @@ mod addmeta {
 
     pub fn tok_meta(ctx: Context<TokMeta>, bump: u8) -> Result<()> {
        let ix = create_metadata_accounts_v3(
-            mpl_token_metadata::id(), // program_id,
+            *ctx.accounts.metadata_program.to_account_info().key, // program_id,
             *ctx.accounts.metadata_pda.to_account_info().key, // metadata_account,
             *ctx.accounts.mint.to_account_info().key, //mint,
             *ctx.accounts.mint.to_account_info().key, //mint_authority,
@@ -55,6 +55,7 @@ mod addmeta {
         invoke_signed(
             &ix,
             &[
+                ctx.accounts.metadata_program.to_account_info().clone(), // Metadata program id
                 ctx.accounts.metadata_pda.to_account_info().clone(), // Metadata account
                 ctx.accounts.mint.to_account_info().clone(), // Mint
                 ctx.accounts.mint.to_account_info().clone(), // Mint Authority
@@ -103,5 +104,7 @@ pub struct TokMeta<'info> {
     pub metadata_pda: AccountInfo <'info>,
     pub system_program: Program<'info, System>,
     pub token_program: Program<'info, Token>,
+    /// CHECK: This is not dangerous because it will be checked in the inner instruction
+    pub metadata_program: AccountInfo<'info>,
     pub rent: Sysvar<'info, Rent>,
 }

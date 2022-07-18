@@ -49,11 +49,13 @@ describe("addmeta", () => {
 
   it("Sets the token metadata", async () => {
     const [ctrlPDA, bump] = await PublicKey.findProgramAddress([anchor.utils.bytes.utf8.encode(CTRLSEED)], program.programId);
-    console.log("TokMeta: okuPDA is [", ctrlPDA.toString(), "], bump ", bump);
+    console.log("TokMeta: ctrlPDA is [", ctrlPDA.toString(), "], bump ", bump);
     const metadataPDA = await findMetadataPda(ctrlPDA);
     console.log("TokMeta: metadataPDA is [", metadataPDA.toString(), "]");
     const adm = new PublicKey(ADMINACC);
     console.log("TokMeta: usr=", usr.toString(), "adm=", adm.toString())
+    const METADATA_PROGRAM_ID = new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
+    console.log("TokMeta: METADATA_PROGRAM_ID:", METADATA_PROGRAM_ID.toString());
 
     await program.methods
       .tokMeta(bump)
@@ -65,6 +67,7 @@ describe("addmeta", () => {
         metadataPda: metadataPDA,
         systemProgram: SystemProgram.programId,
         tokenProgram: TOKEN_PROGRAM_ID,
+        metadataProgram: METADATA_PROGRAM_ID,
         rent: SYSVAR_RENT_PUBKEY,
       })
       .rpc();
