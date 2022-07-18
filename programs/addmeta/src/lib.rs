@@ -41,7 +41,7 @@ mod addmeta {
             *ctx.accounts.mint.to_account_info().key, //mint_authority,
             *ctx.accounts.payer.to_account_info().key, //payer,
             *ctx.accounts.updauth.to_account_info().key, //update_authority,
-            String::from("CTRL - Program Controlled Solana SPL Token"), // name,
+            String::from("CTRL - Program Controlled Token"), // name,
             String::from("CTRL"), // symbol,
             String::from("https://bernieblume.github.io/Ctrl/Ctrl.json"), // uri,
             None, // creators,
