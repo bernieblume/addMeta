@@ -7,8 +7,7 @@ use anchor_spl::{
     token::{Mint, Token},
    };
 
-use mpl_token_metadata::{instruction::create_metadata_accounts_v3};
-// use mpl_token_metadata::pda::find_metadata_account;
+use mpl_token_metadata::{instruction::create_metadata_accounts_v2};
 
 pub const CTRLSEED: &[u8] = b"CTRLv1";
 
@@ -34,7 +33,7 @@ mod addmeta {
     }    
 
     pub fn tok_meta(ctx: Context<TokMeta>, bump: u8) -> Result<()> {
-       let ix = create_metadata_accounts_v3(
+       let ix = create_metadata_accounts_v2(
             *ctx.accounts.metadata_program.to_account_info().key, // program_id,
             *ctx.accounts.metadata_pda.to_account_info().key, // metadata_account,
             *ctx.accounts.mint.to_account_info().key, //mint,
@@ -50,7 +49,7 @@ mod addmeta {
             true, // is_mutable,
             None, // collection,
             None, // uses,
-            None, // collection_details
+            // for create_metadata_accounts_v3, add:     None, // collection_details
         );
         invoke_signed(
             &ix,
